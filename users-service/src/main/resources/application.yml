@@ -29,7 +29,7 @@ spring:
           api-movies-service:
             provider: keycloak-provider
             client-id: microservicios
-            client-secret: gI6sb58U6cieJkGLZnFuWxKnOFCpzxDl
+            client-secret: CSMBDFgT5irvBDQDDaFDFBAfd3n4QcrI
             authorization-grant-type:
             redirect-uri: http://localhost:8084/*
 
