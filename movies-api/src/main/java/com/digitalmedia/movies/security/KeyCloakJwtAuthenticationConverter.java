@@ -29,6 +29,7 @@ public class KeyCloakJwtAuthenticationConverter implements Converter<Jwt, Abstra
         resourcesRoles.addAll(extractResourceAccess("resource_access", objectMapper.readTree(objectMapper.writeValueAsString(jwt)).get(CLAIMS)));
         resourcesRoles.addAll(extractRealAccess("realm_access", objectMapper.readTree(objectMapper.writeValueAsString(jwt)).get(CLAIMS)));
         resourcesRoles.addAll(extractAud("aud", objectMapper.readTree(objectMapper.writeValueAsString(jwt)).get(CLAIMS)));
+        resourcesRoles.addAll(extractGroup("groups", objectMapper.readTree(objectMapper.writeValueAsString(jwt)).get(CLAIMS)));
         return resourcesRoles;
     }
 
@@ -81,5 +82,18 @@ public class KeyCloakJwtAuthenticationConverter implements Converter<Jwt, Abstra
     public Collection<GrantedAuthority> getGrantedAuthorities(Jwt source) throws JsonProcessingException {
         return Stream.concat(this.defaultGrantedAuthoritiesConverter.convert(source).stream(),
                 extractResourceRoles(source).stream()).collect(Collectors.toSet());
+    }
+
+    private static List<GrantedAuthority> extractGroup(String route, JsonNode jwt) {
+        Set<String> rolesWithPrefix = new HashSet<>();
+
+        jwt.path(route)
+                .elements()
+                .forEachRemaining(e -> e.path("groups")
+                        .elements()
+                        .forEachRemaining(r -> rolesWithPrefix.add("GROUP_" + r.asText()))
+                );
+
+        return AuthorityUtils.createAuthorityList(rolesWithPrefix.toArray(new String[0]));
     }
 }

@@ -472,8 +472,8 @@
   "webAuthnPolicyPasswordlessAcceptableAaguids": [],
   "users": [
     {
-      "id": "f6bb1eb2-a0c2-4c40-8edf-ffc9d9fc05c9",
-      "createdTimestamp": 1668872166416,
+      "id": "12d388c7-6451-49be-940b-3f3b9fefa17c",
+      "createdTimestamp": 1668888804425,
       "username": "service-account-microservicios",
       "enabled": true,
       "totp": false,
@@ -774,7 +774,7 @@
       ]
     },
     {
-      "id": "a49baad3-7847-4442-a057-2227699da065",
+      "id": "e8d19c82-efd0-42ea-b3df-22c2aac9ae81",
       "clientId": "microservicios",
       "surrogateAuthRequired": false,
       "enabled": true,
@@ -813,7 +813,7 @@
         "saml.allow.ecp.flow": "false",
         "id.token.as.detached.signature": "false",
         "saml.assertion.signature": "false",
-        "client.secret.creation.time": "1668872166",
+        "client.secret.creation.time": "1668888804",
         "saml.encrypt": "false",
         "saml.server.signature": "false",
         "exclude.session.state.from.auth.response": "false",
@@ -831,21 +831,32 @@
       "nodeReRegistrationTimeout": -1,
       "protocolMappers": [
         {
-          "id": "d82925fe-c7e1-450d-a760-0a9e97ec68f8",
-          "name": "Client ID",
+          "id": "1a4b13b0-8e0b-4c15-b57a-b71a3b90e4a9",
+          "name": "Client Host",
           "protocol": "openid-connect",
           "protocolMapper": "oidc-usersessionmodel-note-mapper",
           "consentRequired": false,
           "config": {
-            "user.session.note": "clientId",
+            "user.session.note": "clientHost",
             "id.token.claim": "true",
             "access.token.claim": "true",
-            "claim.name": "clientId",
+            "claim.name": "clientHost",
             "jsonType.label": "String"
           }
         },
         {
-          "id": "2bf2a690-1309-452a-92b0-bdc98c6b8865",
+          "id": "25be6c9b-0248-4d1a-b17a-0c34c435e1da",
+          "name": "groups",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-claims-param-token-mapper",
+          "consentRequired": false,
+          "config": {
+            "id.token.claim": "true",
+            "userinfo.token.claim": "true"
+          }
+        },
+        {
+          "id": "eb7c4392-bc39-4967-8f06-225a0a8b8e20",
           "name": "Client IP Address",
           "protocol": "openid-connect",
           "protocolMapper": "oidc-usersessionmodel-note-mapper",
@@ -859,16 +870,16 @@
           }
         },
         {
-          "id": "8e0f1d27-3643-4487-a108-1d4f7594cc71",
-          "name": "Client Host",
+          "id": "18e5ffec-df00-465c-84b7-7fd7d73ef4a6",
+          "name": "Client ID",
           "protocol": "openid-connect",
           "protocolMapper": "oidc-usersessionmodel-note-mapper",
           "consentRequired": false,
           "config": {
-            "user.session.note": "clientHost",
+            "user.session.note": "clientId",
             "id.token.claim": "true",
             "access.token.claim": "true",
-            "claim.name": "clientHost",
+            "claim.name": "clientId",
             "jsonType.label": "String"
           }
         }
@@ -881,6 +892,7 @@
         "email"
       ],
       "optionalClientScopes": [
+        "facturacion:gestion",
         "address",
         "phone",
         "offline_access",
@@ -1217,7 +1229,22 @@
       "attributes": {
         "include.in.token.scope": "true",
         "display.on.consent.screen": "true"
-      }
+      },
+      "protocolMappers": [
+        {
+          "id": "73bcf19c-b8ff-4228-aa93-c9a10de9b4de",
+          "name": "groups",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-group-membership-mapper",
+          "consentRequired": false,
+          "config": {
+            "full.path": "true",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "userinfo.token.claim": "true"
+          }
+        }
+      ]
     },
     {
       "id": "dc5c2a59-1080-4d70-a8d7-151dc73eab4c",
