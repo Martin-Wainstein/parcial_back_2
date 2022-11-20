@@ -89,9 +89,7 @@ public class KeyCloakJwtAuthenticationConverter implements Converter<Jwt, Abstra
 
         jwt.path(route)
                 .elements()
-                .forEachRemaining(e -> e.path("groups")
-                        .elements()
-                        .forEachRemaining(r -> rolesWithPrefix.add("GROUP_" + r.asText()))
+                .forEachRemaining(e -> rolesWithPrefix.add("GROUP_" + e.asText().replace("/", ""))
                 );
 
         return AuthorityUtils.createAuthorityList(rolesWithPrefix.toArray(new String[0]));
