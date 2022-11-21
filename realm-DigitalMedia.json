@@ -472,6 +472,22 @@
   "webAuthnPolicyPasswordlessAcceptableAaguids": [],
   "users": [
     {
+      "id": "6a87a605-e86f-4ad7-9664-0ec9489de3d2",
+      "createdTimestamp": 1668987622127,
+      "username": "service-account-api-gateway",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": false,
+      "serviceAccountClientId": "api-gateway",
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": [
+        "default-roles-digital-medio"
+      ],
+      "notBefore": 0,
+      "groups": []
+    },
+    {
       "id": "12d388c7-6451-49be-940b-3f3b9fefa17c",
       "createdTimestamp": 1668888804425,
       "username": "service-account-microservicios",
@@ -615,7 +631,10 @@
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
-      "redirectUris": [],
+      "secret": "**********",
+      "redirectUris": [
+        "http://localhost:8080/login/oauth2/code/keycloak"
+      ],
       "webOrigins": [],
       "notBefore": 0,
       "bearerOnly": false,
@@ -623,13 +642,38 @@
       "standardFlowEnabled": true,
       "implicitFlowEnabled": false,
       "directAccessGrantsEnabled": true,
-      "serviceAccountsEnabled": false,
-      "publicClient": true,
+      "serviceAccountsEnabled": true,
+      "publicClient": false,
       "frontchannelLogout": false,
       "protocol": "openid-connect",
       "attributes": {
+        "saml.force.post.binding": "false",
+        "saml.multivalued.roles": "false",
+        "frontchannel.logout.session.required": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.revoke.offline.tokens": "false",
+        "saml.server.signature.keyinfo.ext": "false",
+        "use.refresh.tokens": "true",
+        "oidc.ciba.grant.enabled": "false",
         "backchannel.logout.session.required": "true",
-        "backchannel.logout.revoke.offline.tokens": "false"
+        "client_credentials.use_refresh_token": "false",
+        "require.pushed.authorization.requests": "false",
+        "saml.client.signature": "false",
+        "saml.allow.ecp.flow": "false",
+        "id.token.as.detached.signature": "false",
+        "saml.assertion.signature": "false",
+        "client.secret.creation.time": "1668987622",
+        "saml.encrypt": "false",
+        "saml.server.signature": "false",
+        "exclude.session.state.from.auth.response": "false",
+        "saml.artifact.binding": "false",
+        "saml_force_name_id_format": "false",
+        "acr.loa.map": "{}",
+        "tls.client.certificate.bound.access.tokens": "false",
+        "saml.authnstatement": "false",
+        "display.on.consent.screen": "false",
+        "token.response.type.bearer.lower-case": "false",
+        "saml.onetimeuse.condition": "false"
       },
       "authenticationFlowBindingOverrides": {},
       "fullScopeAllowed": true,
@@ -845,17 +889,6 @@
           }
         },
         {
-          "id": "25be6c9b-0248-4d1a-b17a-0c34c435e1da",
-          "name": "groups",
-          "protocol": "openid-connect",
-          "protocolMapper": "oidc-claims-param-token-mapper",
-          "consentRequired": false,
-          "config": {
-            "id.token.claim": "true",
-            "userinfo.token.claim": "true"
-          }
-        },
-        {
           "id": "eb7c4392-bc39-4967-8f06-225a0a8b8e20",
           "name": "Client IP Address",
           "protocol": "openid-connect",
@@ -881,6 +914,20 @@
             "access.token.claim": "true",
             "claim.name": "clientId",
             "jsonType.label": "String"
+          }
+        },
+        {
+          "id": "fe9271ba-4712-45dd-84bc-39193c9dc397",
+          "name": "groups",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-group-membership-mapper",
+          "consentRequired": false,
+          "config": {
+            "full.path": "true",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "groups",
+            "userinfo.token.claim": "true"
           }
         }
       ],

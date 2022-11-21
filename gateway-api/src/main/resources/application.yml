@@ -11,23 +11,38 @@ spring:
           enabled: true
       routes:
         - id: users-service
-          uri: lb://users-service
+          uri: host.docker.internal:users-service:8086
           predicates:
-            - Path=/api/users/**
+            - Path=/users/**
           filters:
             - StripPrefix=2
         - id: movies-api
-          uri: lb://movies-api
+          uri: host.docker.internal:movies-api:8087
           predicates:
-            - Path=/api/movies/**
+            - Path=/movies/**
           filters:
             - StripPrefix=2
         - id: ms-bills
-          uri: lb://ms-bills
+          uri: host.docker.internal:ms-bills:8088
           predicates:
-            - Path=/api/bills/**
+            - Path=/bills/**
           filters:
             - StripPrefix=2
+
+    security:
+      oauth2:
+        client:
+          provider:
+            keycloak-provider:
+              issuer-uri: http://localhost:8082/realms/digitalmedia
+              jwk-set-uri: http://localhost:8082/realms/digitalmedia/protocol/openid-connect/certs
+          registration:
+            api-gateway:
+              client-id: api-gateway
+              client-secret: zpynKZ5jzVtzzwcP6xYmKYJW5kqHmfsR
+              authorization-grant-type: authorization-code
+              redirect-uri: http://localhost:8080/login/oauth2/code/keycloak
+              scope: openid
 eureka:
   client:
     service-url:
