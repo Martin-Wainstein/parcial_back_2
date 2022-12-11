@@ -5,6 +5,7 @@ import com.digitalmedia.users.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,5 +28,10 @@ public class UserServiceImpl implements IUserService {
   @Override
   public User saveUserExtra(User user) {
     return userRepository.saveUserExtra(user);
+  }
+
+  @Override
+  public List<User> getNonAdminUsers(){
+    return userRepository.getNonAdminUsers();
   }
 }

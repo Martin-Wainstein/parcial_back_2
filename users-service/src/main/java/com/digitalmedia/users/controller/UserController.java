@@ -31,4 +31,9 @@ public class UserController {
     userExtra.setAvatar(updateUserRequest.getAvatar());
     return userService.saveUserExtra(userExtra);
   }
+
+  @GetMapping("/noadmins")
+  public List<User> getNonAdminUsers(){
+    return userService.getNonAdminUsers();
+  }
 }
